@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>小说网</title>
+	<link rel="stylesheet" type="text/css" href="xshuo.css">	
+</head>
+<body>
+	<div id="begin">
+		<form> 
+		     用户名: <br/>
+		     <input type = "text" name = "name" /> <br />
+		     密码:<br/>
+		     <input type = "password" name = "mima" value = "" /><br/>
+		     <p>   </p>
+		     <input type="button" value="登录" onclick="register();" class="register"/>
+		</form> 
+	</div>
+	<div id="web">
+		<div class="container clear">
+			<img src="image/OIP (1).jpg" class="logo"/>
+			<ul class="nav clear">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">小说</a></li>
+                <li><a href="#">儿童读物</a></li>
+                <li><a href="#">工具书</a></li>
+                <li><a href="#">日记</a></li>
+                <li><a href="#">摄影绘画集</a></li>
+            </ul>
+		</div>
+		<div class="banner">
+			<div class="banner-img clear">
+				<div class="banner-img-N"><img src="image/0017029391106515_b.jpg" class="img"/></div>
+				<div class="banner-img-N"><img src="image/OIP (2).jpg" class="img"/></div>
+				<div class="banner-img-N"><img src="image/OIP (3).jpg" class="img"/></div>
+			</div>
+			<div class="spot">
+		        <div class="spot-N">1</div>
+		        <div class="spot-N">2</div>
+		        <div class="spot-N">3</div>
+	   		</div>
+	   		<div class="btn clear">
+		        <div class="left"><span> < </span></div>
+		        <div class="right"><span> > </span></div>
+	    	</div>
+    	</div>
+    	<div>
+    		<a href="" onclick="tell()"><img src="image/OIP.jpg" class="img-n"/></a>
+    		<a href="" onclick="tell()"><img src="image/OIP (4).jpg" class="img-n"/></a>
+    		<a href="" onclick="tell()"><img src="image/OIP (5).jpg" class="img-n"/></a>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function register(){
+		begin.style.display="none";
+		web.style.display="block";
+	}
+	var banner_img = document.getElementsByClassName("banner-img")[0];
+    var spot = document.getElementsByClassName("spot-N");
+    var banner = document.getElementsByClassName("banner")[0];
+    var left = document.getElementsByClassName("left")[0];
+    var right = document.getElementsByClassName("right")[0];
+    var time = null;
+    var count = 0;
+    spot[0].style.backgroundColor = "rgba(91,91,91,0.8)";
+    
+    showtime();
+    
+
+    banner.onmouseenter = function () {
+        clearInterval(time);
+    };
+    banner.onmouseleave = function () {
+        showtime();
+    };
+
+    for (var i = 0; i < spot.length; i++) {
+        spot[i].index = i;
+        spot[i].onmouseenter = function () {
+        	spot[count].style.backgroundColor = "rgba(255, 255, 255, 0.3)";
+            this.style.background = "rgba(91,91,91,0.8)";
+            count = this.index;
+            banner_img.style.marginLeft = (count * -1200) + "px";
+        }
+
+    }
+
+    right.onclick = function () {
+        slide();
+    };
+
+    left.onclick = function () {
+        spot[count].style.backgroundColor = "rgba(255,255,255,0.3)";
+        count--;
+        if (count < 0) {
+            banner_img.className = "banner_img";
+            count = banner_img.children.length - 1;
+            banner_img.style.marginLeft = "-3600px";
+        }
+        setTimeout(function () {
+            banner_img.className = "box_big ";
+            banner_img.style.marginLeft = (-1200 * count) + "px";
+            spot[count].style.backgroundColor = "rgba(91,91,91,0.8)";
+        }, 1);
+    };
+
+
+	function showtime() {
+        time = setInterval(function () {
+            slide();
+        }, 1000);
+    }
+
+
+    function slide() {
+        banner_img.className = "banner_img ";
+        spot[count].style.backgroundColor = "rgba(255, 255, 255, 0.3)";
+        count++;
+        spot[count > banner_img.children.length -1 ? 0 : count].style.backgroundColor = "rgba(91,91,91,0.8)";
+        banner_img.style.marginLeft = (count * -1200) + "px";
+        setTimeout(function () {
+            if (count > banner_img.children.length -1) {
+                count = 0;
+                banner_img.className = "banner_img";
+                banner_img.style.marginLeft = "0px"
+            }
+        }, 500)
+    }
+
+    function tell(){
+    	alert("是否确定打开此链接?")
+    }
+</script>
+</html>
